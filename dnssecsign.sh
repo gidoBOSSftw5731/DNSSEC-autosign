@@ -7,8 +7,8 @@ cd /etc/bind/zones
 epid=$?
 
 #/dev/random is good but it blocks, you really want an entropy script or RNG.
-dnssec-signzone -3 $(head -c 1000 /dev/random | sha512sum | cut -c 1-64) -N UNIXTIME -o $1 -t db.$1
+/usr/sbin/dnssec-signzone -3 $(head -c 1000 /dev/random | sha512sum | cut -c 1-64) -N UNIXTIME -o $1 -t db.$1
 
-rndc reload
+/usr/sbin/rndc reload
 
 kill -9 $epid
